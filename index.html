@@ -8,13 +8,31 @@
         <script>
             function getComputerChoice() {
                 let randomNumber = Math.floor(Math.random() * 3) +1;
-
                 if (randomNumber === 1) {
                     return "Rock";
                 } else if (randomNumber === 2) {
                     return "Paper";
                 } else if (randomNumber === 3) {
                     return "Scissors";
+                }
+            }
+
+            function playRound(playerSelection, computerSelection) {
+                let caseInsensitive = playerSelection.toUpperCase();
+                if (caseInsensitive === "ROCK" && computerSelection === "Paper") {
+                    return "You lose! Paper covers Rock";
+                } else if (caseInsensitive === "PAPER" && computerSelection === "Rock") {
+                    return "You win! Paper covers Rock";
+                } else if (caseInsensitive === "PAPER" && computerSelection === "Scissors") {
+                    return "You lose! Scissors cuts Paper";
+                } else if (caseInsensitive === "SCISSORS" && computerSelection === "paper") {
+                    return "You win! Scissors cuts Paper";
+                } else if (caseInsensitive === "ROCK" && computerSelection === "Scissors") {
+                    return "You win! Rock crushes Scissors";
+                } else if (caseInsensitive === "SCISSORS" && computerSelection === "Rock") {
+                    return "You lose! Rock crushes Scissors";
+                } else {
+                    return "It's a tie"
                 }
             }
         </script>
