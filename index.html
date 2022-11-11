@@ -20,26 +20,52 @@
             function playRound(playerSelection, computerSelection) {
                 let caseInsensitive = playerSelection.toUpperCase();
                 if (caseInsensitive === "ROCK" && computerSelection === "Paper") {
-                    return "You lose! Paper covers Rock"; return computerWinsRound;
+                    return "You lose!";
                 } else if (caseInsensitive === "PAPER" && computerSelection === "Rock") {
-                    return "You win! Paper covers Rock"; return playerWinsRound;
+                    return "You win!";
                 } else if (caseInsensitive === "PAPER" && computerSelection === "Scissors") {
-                    return "You lose! Scissors cuts Paper"; return computerWinsRound;
+                    return "You lose!";
                 } else if (caseInsensitive === "SCISSORS" && computerSelection === "paper") {
-                    return "You win! Scissors cuts Paper"; return playerWinsRound;
+                    return "You win!";
                 } else if (caseInsensitive === "ROCK" && computerSelection === "Scissors") {
-                    return "You win! Rock crushes Scissors"; return playerWinsRound;
+                    return "You win!";
                 } else if (caseInsensitive === "SCISSORS" && computerSelection === "Rock") {
-                    return "You lose! Rock crushes Scissors"; return computerWinsRound;
+                    return "You lose!";
                 } else if (caseInsensitive === "ROCK" && computerSelection === "Rock" || caseInsensitive === "PAPER" && computerSelection === "Paper" || caseInsensitive ==="SCISSORS" && computerSelection === "Scissors") {
-                    return "It's a tie"; return draw;
+                    return "It's a tie";
                 } else {
                     return "Error! Please choose 'Rock', 'Paper' or 'Scissors'";
                 }
             }
-            const playerSelection = "rock";
-            const computerSelection = getComputerChoice();
-            console.log(playRound(playerSelection, computerSelection));
+            let playerScore = 0;
+            let computerScore = 0;
+            let draw = 0;
+            function game() {
+                for (let i = 0; i < 5; i++) {
+                    let playerSelection = prompt("Pick your move");
+                    let computerSelection = getComputerChoice();
+                    let result = playRound(playerSelection, computerSelection);
+                    console.log(result);
+                    let gameResult = result;
+
+                    if (gameResult === "You win!") {
+                        playerScore++;
+                    } else if (gameResult === "You lose!") {
+                        computerScore++;
+                    } else if (gameResult === "It's a tie") {
+                        draw++;
+                    }
+
+                   console.log(playerScore, computerScore)
+                }
+                if (playerScore > computerScore) {
+                        return "You win the game!";
+                    } else if (computerScore > playerScore) {
+                        return "You lose! Better luck next time.";
+                    } else if (playerScore === computerScore) {
+                        return "It's a draw!"
+                    }
+            }
         </script>
     </body>
 </html>
