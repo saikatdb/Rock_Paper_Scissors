@@ -42,7 +42,7 @@
             let draw = 0;
             function game() {
                 for (let i = 0; i < 5; i++) {
-                    let playerSelection = prompt("Pick your move");
+                    let playerSelection = prompt("Pick your move - 'Rock', 'Paper' or 'Scissors'");
                     let computerSelection = getComputerChoice();
                     let result = playRound(playerSelection, computerSelection);
                     console.log(result);
@@ -66,6 +66,7 @@
                         return "It's a draw!"
                     }
             }
+            console.log(game())
         </script>
     </body>
 </html>
