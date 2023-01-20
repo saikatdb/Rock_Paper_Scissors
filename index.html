@@ -5,6 +5,16 @@
         <title>Rock Papers Scissors</title>
     </head>
     <body>
+
+        <button id="rock" class="button">Rock</button>
+        <button id="paper" class="button">Paper</button>
+        <button id="scissors" class="button">Scissors</button>
+ 
+        <br><br>
+        <div class="result"></div>
+        <br><br>
+        <div class="winner"></div>
+        
         <script>
             function getComputerChoice() {
                 let randomNumber = Math.floor(Math.random() * 3) +1;
@@ -16,59 +26,71 @@
                     return "Scissors";
                 }
             }
-
+            const win = "You win!";
+            const lose = "You lose!";
+            const tie = "It's a tie!"
             function playRound(playerSelection, computerSelection) {
+                computerSelection = getComputerChoice()
                 let caseInsensitive = playerSelection.toUpperCase();
                 if (caseInsensitive === "ROCK" && computerSelection === "Paper") {
-                    return "You lose!";
+                    return lose + " Paper beats Rock!";
                 } else if (caseInsensitive === "PAPER" && computerSelection === "Rock") {
-                    return "You win!";
+                    return win + " Rock beats Paper";
                 } else if (caseInsensitive === "PAPER" && computerSelection === "Scissors") {
-                    return "You lose!";
-                } else if (caseInsensitive === "SCISSORS" && computerSelection === "paper") {
-                    return "You win!";
+                    return lose + " Scissors beats Paper";
+                } else if (caseInsensitive === "SCISSORS" && computerSelection === "Paper") {
+                    return win + " Paper beats Scissors";
                 } else if (caseInsensitive === "ROCK" && computerSelection === "Scissors") {
-                    return "You win!";
+                    return win + " Scissors beat Rock";
                 } else if (caseInsensitive === "SCISSORS" && computerSelection === "Rock") {
-                    return "You lose!";
+                    return lose + " Rock beats Scissors";
                 } else if (caseInsensitive === "ROCK" && computerSelection === "Rock" || 
                            caseInsensitive === "PAPER" && computerSelection === "Paper" || 
                            caseInsensitive ==="SCISSORS" && computerSelection === "Scissors") {
-                    return "It's a tie";
-                } else {
-                    return "Error! Please choose 'Rock', 'Paper' or 'Scissors'";
+                    return tie + " Both of you choose the same";
                 }
+                
             }
             let playerScore = 0;
             let computerScore = 0;
-            let draw = 0;
-            function game() {
-                for (let i = 0; i < 5; i++) {
-                    let playerSelection = prompt("Pick your move - 'Rock', 'Paper' or 'Scissors'");
-                    let computerSelection = getComputerChoice();
-                    let result = playRound(playerSelection, computerSelection);
-                    console.log(result);
-                    let gameResult = result;
+            let playerSelection = 0;
+            let computerSelection = 0;
 
-                    if (gameResult === "You win!") {
+            const buttons = document.querySelectorAll('button');
+            const result = document.querySelector('.result');
+            const winner = document.querySelector('.winner');
+            const btn = document.querySelectorAll('.button')
+
+            buttons.forEach((button) => {
+                button.addEventListener('click', () => {
+                    const log = playRound(button.id, computerSelection);
+                    
+                    if(log === win + " Rock beats Paper" 
+                    || log === win + " Paper beats Scissors" 
+                    || log === win + " Scissors beat Rock"){
                         playerScore++;
-                    } else if (gameResult === "You lose!") {
+                    }else if(log === lose + " Paper beats Rock!"
+                    || log === lose + " Scissors beats Paper"
+                    || log === lose + " Rock beats Scissors"){
                         computerScore++;
-                    } else if (gameResult === "It's a tie") {
-                        draw++;
                     }
+                    result.innerHTML = log + '<br/>' + '<br/>' +
+                    'Player Score:' + playerScore + '<br/>' +
+                    'Computer Score:' + computerScore;
 
-                   console.log(playerScore, computerScore)
-                }
-                if (playerScore > computerScore) {
-                        return "You win the game!";
-                    } else if (computerScore > playerScore) {
-                        return "You lose! Better luck next time.";
-                    } else if (playerScore === computerScore) {
-                        return "It's a draw!"
-                    }
-            }
-            console.log(game())
+                    if (playerScore === 5) {
+                        winner.textContent = 'Congratulations! You won the game! Reload the page to try again.';
+                        btn.forEach((b) => {
+                          b.disabled = true;
+                        })
+                    }else if (computerScore === 5) {
+                        winner.textContent = 'Sorry! You lose! Better luck next time! Reload the page to try again.';
+                        btn.forEach((b) => {
+                          b.disabled = true;
+                        })
+                    };
+                })
+            })
         </script>
     </body>
 </html>
